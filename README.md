@@ -18,7 +18,7 @@ Admin - `password`
 ## Deployment Steps on Docker:
 ###### Download application
 ```
-git clone https://github.com/ravikalla/online-account.git
+git clone https://github.com/ravikalla/JavaTemplateProject.git
 ```
 ###### Start MySQL Docker Container
 ```
@@ -31,7 +31,7 @@ docker exec -i bankmysql mysql -uroot -proot < src/main/resources/import.sql
 ```
 ###### Run Docker image of the application
 ```
-docker run --detach -p 8800:8800 --link bankmysql:localhost -t ravikalla/online-account:latest
+docker run --detach -p 8800:8800 --link bankmysql:localhost -t ravikalla/JavaTemplateProject:latest
 ```
 Access the application by clicking the URL "[http://localhost:8800!](http://localhost:8800)"
 
@@ -47,21 +47,21 @@ mvn clean build
 
 ###### Run application
 ```
-java -jar target/online-account-0.0.1-SNAPSHOT.jar
+java -jar target/JavaTemplateProject-0.0.1-SNAPSHOT.jar
 ```
 
 ## Things to know:
 ###### Build Docker image for the application
 ```
-docker build -t ravikalla/online-account:latest .
+docker build -t ravikalla/JavaTemplateProject:latest .
 ```
 ###### Create Jenkins image that has Maven
 ```
 sudo chmod 777 /var/run/docker.sock && \
 mkdir -p /jenkins_bkp/jenkins_home && \
 chmod -R 777 /jenkins_bkp && \
-git clone https://github.com/ravikalla/online-account.git && \
-cd online-account && \
+git clone https://github.com/ravikalla/JavaTemplateProject.git && \
+cd JavaTemplateProject && \
 git checkout master && \
 cp Dockerfile-Jenkins-Maven ../Dockerfile && \
 cd .. && \
@@ -72,7 +72,7 @@ docker build -t ravikalla/jenkins-maven-docker:v0.1 .
 docker run --detach -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):$(which docker) -p 9080:8080 -p 50000:50000 -v /jenkins_bkp/jenkins_home:/var/jenkins_home ravikalla/jenkins-maven-docker:v0.1
 ```
 ###### Setup "online-bank" project in Jenkins:
- * Login to Jenkins and setup a pipeline project with source code from [Link to OnlineBankAccount GIT repo!](https://github.com/ravikalla/online-account.git)
+ * Login to Jenkins and setup a pipeline project with source code from [Link to OnlineBankAccount GIT repo!](https://github.com/ravikalla/JavaTemplateProject.git)
  * Run the job to build and deploy the application
 
 ###### Debug H2 DB while testing
