@@ -41,13 +41,13 @@ pipeline {
         stage('Build and Upload Docker Image') {
             steps {
                 echo 'Building Docker image'
-                sh 'docker build -t ravikalla/JavaTemplateProject:1 .'
+                sh 'docker build -t ravikalla/java-template-project:1 .'
 
                 echo 'Uploading Docker image'
                 sh '''
-                docker tag ravikalla/JavaTemplateProject:1 ravikalla/JavaTemplateProject:1
+                docker tag ravikalla/java-template-project:1 ravikalla/java-template-project:1
                 docker login --username=$DOCKER_USER --password=$DOCKER_TOKEN
-                docker push ravikalla/JavaTemplateProject:1
+                docker push ravikalla/java-template-project:1
                 '''
             }
         }
@@ -67,8 +67,8 @@ pipeline {
                 echo 'Running Application'
                 sh 'docker stop cloudbank || true && docker rm cloudbank || true'
             //  Commented as MySQL is replaced by H2
-            //  sh 'docker run --detach --name=cloudbank -p 8800:8800 --link bankmysql:localhost -t ravikalla/JavaTemplateProject:1'
-                sh 'docker run --detach --name=cloudbank -p 8800:8800 ravikalla/JavaTemplateProject:1'
+            //  sh 'docker run --detach --name=cloudbank -p 8800:8800 --link bankmysql:localhost -t ravikalla/java-template-project:1'
+                sh 'docker run --detach --name=cloudbank -p 8800:8800 ravikalla/java-template-project:1'
             }
         }
     }
